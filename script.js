@@ -1,7 +1,7 @@
 // Configuration
 const CONFIG = {
     // URL CORRECTE de vos données GitLab
-    GEOJSON_URL: 'https://gitlab.com/marwan.ouftir45/parcellespac/-/raw/main/public/parcellespac.geojson?ref_type=heads',
+    GEOJSON_URL: 'https://raw.githubusercontent.com/marwanouftir45-ui/testdashbord/refs/heads/main/parcelles-agricoles-2026-01-23.json',
     
     // URLs de secours
     GEOJSON_FALLBACK_URLS: [
