@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>testdashbordCER</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Dashboard Agricole Avancé | Parcelles</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Notre CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAkElEQVQ4jWNkYGBg+M8wGvAMfAasDAwMjP///2dgZGBgYGBkZGT8////fwYGBgYGBgYGBgYGBiZ6aPgPpYGJgYGBgeH///8MDAwMDP////8PpYGJgYGBgeH///8MDAwMDP////8P5oH///8zMDAwMDAxMTEwMDAwMDAwMDBAaWBgYGBgYGBgYGBgYGCA0cDAwMAAAK/mIlS2oAokAAAAAElFTkSuQmCC">
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+    
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-tractor"></i>
+                <h2>AgriDash</h2>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Carte interactive</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytiques</span>
+                    <span class="nav-badge">Nouveau</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-database"></i>
+                    <span>Base de données</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-file-export"></i>
+                    <span>Exportations</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <strong>Admin Agricole</strong>
+                        <small>connecté</small>
+                    </div>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Mode sombre</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Dashboard Parcelles Agricoles</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="globalSearch" placeholder="Rechercher une parcelle...">
+                    <div class="search-dropdown" id="searchDropdown">
+                        <!-- Résultats dynamiques -->
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="header-btn" id="refreshBtn" title="Actualiser">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="header-btn" id="fullscreenBtn" title="Plein écran">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <div class="header-notification">
+                        <button class="header-btn" id="notificationBtn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count">3</span>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <button class="mark-read">Tout marquer comme lu</button>
+                            </div>
+                            <div class="notification-list">
+                                <!-- Notifications dynamiques -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-parcelles">0</h3>
+                        <p>Total Parcelles</p>
+                        <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 12%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="cultures-uniques">0</h3>
+                        <p>Types de Cultures</p>
+                        <span class="stat-trend down"><i class="fas fa-arrow-down"></i> 3%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="surface-totale">0 ha</h3>
+                        <p>Surface Totale</p>
+                        <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 8%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="surface-moyenne">0 ha</h3>
+                        <p>Surface Moyenne</p>
+                        <span class="stat-trend neutral"><i class="fas fa-minus"></i> 0%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ff9a9e, #fad0c4);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="favorites-count">0</h3>
+                        <p>Favoris</p>
+                        <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 25%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column -->
+                <div class="column-left">
+                    <!-- Chart 1 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-pie"></i> Répartition des Cultures</h3>
+                            <div class="card-actions">
+                                <button class="card-btn" title="Agrandir"><i class="fas fa-expand"></i></button>
+                                <button class="card-btn" title="Exporter"><i class="fas fa-download"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="cultureChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Parcels -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Dernières Parcelles</h3>
+                            <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="card-content">
+                            <div class="recent-list" id="recentParcels">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Middle Column -->
+                <div class="column-middle">
+                    <!-- Interactive Map -->
+                    <div class="dashboard-card map-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-map"></i> Carte Interactive</h3>
+                            <div class="map-controls-top">
+                                <button class="map-btn active" data-layer="parcels">
+                                    <i class="fas fa-layer-group"></i> Parcelles
+                                </button>
+                                <button class="map-btn" data-layer="satellite">
+                                    <i class="fas fa-satellite"></i> Satellite
+                                </button>
+                                <button class="map-btn" data-layer="terrain">
+                                    <i class="fas fa-mountain"></i> Relief
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="map-loading" id="mapLoading">
+                                <div class="loading-spinner">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </div>
+                                <p>Chargement des données...</p>
+                            </div>
+                            <div id="map"></div>
+                            <div class="map-controls-bottom">
+                                <div class="map-search">
+                                    <input type="text" id="mapSearch" placeholder="Rechercher par FID...">
+                                    <button id="mapSearchBtn"><i class="fas fa-search"></i></button>
+                                </div>
+                                <div class="map-zoom">
+                                    <button class="zoom-btn" id="zoomIn"><i class="fas fa-plus"></i></button>
+                                    <button class="zoom-btn" id="zoomOut"><i class="fas fa-minus"></i></button>
+                                    <button class="zoom-btn" id="resetView"><i class="fas fa-crosshairs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="column-right">
+                    <!-- Chart 2 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Distribution des Surfaces</h3>
+                            <select class="chart-filter" id="surfaceFilter">
+                                <option value="size">Par taille</option>
+                                <option value="culture">Par culture</option>
+                                <option value="region">Par région</option>
+                            </select>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="surfaceChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Table -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-table"></i> Statistiques par Culture</h3>
+                            <div class="table-controls">
+                                <input type="text" placeholder="Filtrer..." class="table-filter" id="statsFilter">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="table-container">
+                                <table id="statsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Culture</th>
+                                            <th>Nombre</th>
+                                            <th>Surface</th>
+                                            <th>Moyenne</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="statsTableBody">
+                                        <!-- Dynamic content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Section -->
+            <div class="dashboard-bottom">
+                <!-- Weather Widget -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cloud-sun"></i> Météo Agricole</h3>
+                        <span class="last-updated">Mis à jour il y a 5 min</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="weather-widget">
+                            <div class="current-weather">
+                                <div class="weather-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="weather-info">
+                                    <h4>16°C</h4>
+                                    <p>Ensoleillé</p>
+                                    <small>Humidité: 65%</small>
+                                </div>
+                            </div>
+                            <div class="weather-forecast">
+                                <div class="forecast-day">
+                                    <span>Lun</span>
+                                    <i class="fas fa-cloud-sun"></i>
+                                    <span>18°</span>
+                                </div>
+                                <div class="forecast-day">
+                                    <span>Mar</span>
+                                    <i class="fas fa-cloud-rain"></i>
+                                    <span>15°</span>
+                                </div>
+                                <div class="forecast-day">
+                                    <span>Mer</span>
+                                    <i class="fas fa-sun"></i>
+                                    <span>20°</span>
+                                </div>
+                                <div class="forecast-day">
+                                    <span>Jeu</span>
+                                    <i class="fas fa-cloud"></i>
+                                    <span>17°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bolt"></i> Actions Rapides</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="quick-actions">
+                            <button class="action-btn" id="exportData">
+                                <i class="fas fa-file-export"></i>
+                                <span>Exporter données</span>
+                            </button>
+                            <button class="action-btn" id="addNote">
+                                <i class="fas fa-edit"></i>
+                                <span>Ajouter une note</span>
+                            </button>
+                            <button class="action-btn" id="generateReport">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Générer rapport</span>
+                            </button>
+                            <button class="action-btn" id="manageFavorites">
+                                <i class="fas fa-star"></i>
+                                <span>Gérer favoris</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Status -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-server"></i> Status Système</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="system-status">
+                            <div class="status-item">
+                                <span class="status-label">Données</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 85%"></div>
+                                </div>
+                                <span class="status-value">85%</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Performance</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 92%"></div>
+                                </div>
+                                <span class="status-value">92%</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Stockage</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 64%"></div>
+                                </div>
+                                <span class="status-value">64%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-left">
+                <span>© 2024 AgriDash v2.0</span>
+                <span class="footer-divider">|</span>
+                <span>Données chargées: <span id="dataCount">0</span> parcelles</span>
+                <span class="footer-divider">|</span>
+                <span>Dernière mise à jour: <span id="lastUpdate">--:--</span></span>
+            </div>
+            <div class="footer-right">
+                <span class="connection-status connected">
+                    <i class="fas fa-wifi"></i> Connecté
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-info-circle"></i> Détails de la Parcelle</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <div class="modal-section">
+                        <h4>Informations générales</h4>
+                        <div class="info-row">
+                            <span class="info-label">ID Parcelle:</span>
+                            <span class="info-value" id="modalFid">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Code Culture:</span>
+                            <span class="info-value" id="modalCode">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Surface:</span>
+                            <span class="info-value" id="modalSurface">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Groupe:</span>
+                            <span class="info-value" id="modalGroup">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4>Détails cultures</h4>
+                        <div class="info-row">
+                            <span class="info-label">Culture principale:</span>
+                            <span class="info-value" id="modalCulture1">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Culture secondaire:</span>
+                            <span class="info-value" id="modalCulture2">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Catégorie:</span>
+                            <span class="info-value" id="modalCategory">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4>Géolocalisation</h4>
+                        <div class="info-row">
+                            <span class="info-label">Coordonnées:</span>
+                            <span class="info-value" id="modalCoords">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Précision:</span>
+                            <span class="info-value" id="modalAccuracy">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4>Actions</h4>
+                        <div class="modal-actions">
+                            <button class="modal-action-btn favorite-btn" id="toggleFavorite">
+                                <i class="far fa-star"></i> Ajouter aux favoris
+                            </button>
+                            <button class="modal-action-btn export-btn">
+                                <i class="fas fa-download"></i> Exporter cette parcelle
+                            </button>
+                            <button class="modal-action-btn share-btn">
+                                <i class="fas fa-share"></i> Partager
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-notes">
+                    <h4>Notes</h4>
+                    <textarea id="parcelNotes" placeholder="Ajouter des notes pour cette parcelle..."></textarea>
+                    <button class="save-notes-btn">Enregistrer les notes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-export"></i> Exporter les données</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option">
+                        <input type="radio" name="exportFormat" id="exportJSON" checked>
+                        <label for="exportJSON">
+                            <i class="fas fa-code"></i>
+                            <span>Format JSON</span>
+                            <small>Toutes les données brutes</small>
+                        </label>
+                    </div>
+                    <div class="export-option">
+                        <input type="radio" name="exportFormat" id="exportCSV">
+                        <label for="exportCSV">
+                            <i class="fas fa-table"></i>
+                            <span>Format CSV</span>
+                            <small>Pour Excel/Tableur</small>
+                        </label>
+                    </div>
+                    <div class="export-option">
+                        <input type="radio" name="exportFormat" id="exportPDF">
+                        <label for="exportPDF">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Rapport PDF</span>
+                            <small>Avec graphiques</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="export-filters">
+                    <h4>Filtres d'export</h4>
+                    <div class="filter-group">
+                        <label>
+                            <input type="checkbox" checked> Inclure les données géographiques
+                        </label>
+                        <label>
+                            <input type="checkbox" checked> Inclure les statistiques
+                        </label>
+                        <label>
+                            <input type="checkbox"> Inclure les notes
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="export-actions">
+                    <button class="export-cancel-btn">Annuler</button>
+                    <button class="export-confirm-btn">
+                        <i class="fas fa-download"></i> Exporter maintenant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
