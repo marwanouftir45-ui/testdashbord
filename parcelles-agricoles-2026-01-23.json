@@ -1,0 +1,232 @@
+{
+  "timestamp": "2026-01-23T19:37:40.745Z",
+  "totalParcelles": 9073,
+  "cultures": {
+    "labels": [
+      "PPH",
+      "MIS",
+      "PTR",
+      "BTH",
+      "Betterave à sucre",
+      "CZH",
+      "ORH",
+      "MLG",
+      "JAC",
+      "LUZ"
+    ],
+    "values": [
+      2464,
+      2038,
+      1496,
+      1301,
+      607,
+      210,
+      172,
+      130,
+      93,
+      76
+    ]
+  },
+  "summary": {
+    "AFG": {
+      "count": 1,
+      "totalSurface": 0.66
+    },
+    "AVH": {
+      "count": 21,
+      "totalSurface": 20.25
+    },
+    "AVP": {
+      "count": 1,
+      "totalSurface": 0.5
+    },
+    "BFS": {
+      "count": 4,
+      "totalSurface": 0.5900000000000001
+    },
+    "BOR": {
+      "count": 27,
+      "totalSurface": 2.19
+    },
+    "BTA": {
+      "count": 607,
+      "totalSurface": 128.65999999999994
+    },
+    "BTH": {
+      "count": 1301,
+      "totalSurface": 4596.169999999996
+    },
+    "BTN": {
+      "count": 24,
+      "totalSurface": 43.87
+    },
+    "BTP": {
+      "count": 1,
+      "totalSurface": 2.57
+    },
+    "CAR": {
+      "count": 2,
+      "totalSurface": 5.3500000000000005
+    },
+    "CHU": {
+      "count": 2,
+      "totalSurface": 6.24
+    },
+    "CPL": {
+      "count": 49,
+      "totalSurface": 126.22999999999999
+    },
+    "CZH": {
+      "count": 210,
+      "totalSurface": 842.5199999999999
+    },
+    "CZP": {
+      "count": 7,
+      "totalSurface": 7.07
+    },
+    "EPE": {
+      "count": 1,
+      "totalSurface": 0.99
+    },
+    "FLA": {
+      "count": 15,
+      "totalSurface": 2
+    },
+    "FRA": {
+      "count": 2,
+      "totalSurface": 0.02
+    },
+    "FVL": {
+      "count": 16,
+      "totalSurface": 48.84
+    },
+    "FVP": {
+      "count": 4,
+      "totalSurface": 10.24
+    },
+    "JAC": {
+      "count": 93,
+      "totalSurface": 46.31
+    },
+    "JNO": {
+      "count": 4,
+      "totalSurface": 0.3
+    },
+    "LDP": {
+      "count": 1,
+      "totalSurface": 1.17
+    },
+    "LUZ": {
+      "count": 76,
+      "totalSurface": 182.16
+    },
+    "MCR": {
+      "count": 23,
+      "totalSurface": 59.260000000000005
+    },
+    "MDI": {
+      "count": 38,
+      "totalSurface": 11.39
+    },
+    "MIS": {
+      "count": 2038,
+      "totalSurface": 5970.359999999994
+    },
+    "MLC": {
+      "count": 2,
+      "totalSurface": 2.84
+    },
+    "MLF": {
+      "count": 20,
+      "totalSurface": 30.449999999999996
+    },
+    "MLG": {
+      "count": 130,
+      "totalSurface": 309.24000000000007
+    },
+    "MOT": {
+      "count": 5,
+      "totalSurface": 9.780000000000001
+    },
+    "MPC": {
+      "count": 11,
+      "totalSurface": 26.369999999999997
+    },
+    "MSW": {
+      "count": 4,
+      "totalSurface": 5.76
+    },
+    "ORH": {
+      "count": 172,
+      "totalSurface": 547.74
+    },
+    "ORP": {
+      "count": 12,
+      "totalSurface": 27.25
+    },
+    "PEP": {
+      "count": 3,
+      "totalSurface": 1.6600000000000001
+    },
+    "POT": {
+      "count": 1,
+      "totalSurface": 0.05
+    },
+    "PPH": {
+      "count": 2464,
+      "totalSurface": 2360.7999999999984
+    },
+    "PPR": {
+      "count": 4,
+      "totalSurface": 18.21
+    },
+    "PTC": {
+      "count": 8,
+      "totalSurface": 22.07
+    },
+    "PTR": {
+      "count": 1496,
+      "totalSurface": 2726.4700000000016
+    },
+    "SGH": {
+      "count": 3,
+      "totalSurface": 5.390000000000001
+    },
+    "SOG": {
+      "count": 9,
+      "totalSurface": 13.529999999999998
+    },
+    "SOJ": {
+      "count": 2,
+      "totalSurface": 5.37
+    },
+    "SPH": {
+      "count": 6,
+      "totalSurface": 3.3299999999999996
+    },
+    "SRS": {
+      "count": 6,
+      "totalSurface": 23.33
+    },
+    "TCR": {
+      "count": 3,
+      "totalSurface": 9.71
+    },
+    "TRE": {
+      "count": 20,
+      "totalSurface": 48.440000000000005
+    },
+    "TRN": {
+      "count": 9,
+      "totalSurface": 38.599999999999994
+    },
+    "TTH": {
+      "count": 67,
+      "totalSurface": 147.46000000000004
+    },
+    "VRG": {
+      "count": 48,
+      "totalSurface": 40.19999999999999
+    }
+  }
+}
