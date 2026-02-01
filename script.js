@@ -1,15 +1,16 @@
 // Configuration
 const CONFIG = {
-    // URL CORRECTE de vos données GitLab
-    GEOJSON_URL: 'https://raw.githubusercontent.com/marwanouftir45-ui/testdashbord/refs/heads/main/parcelles-agricoles-2026-01-23.json',
+    // VOTRE URL GITHUB (corrigée)
+    DATA_URL: 'https://raw.githubusercontent.com/marwanouftir45-ui/testdashbord/refs/heads/main/parcelles-agricoles-2026-01-23.json',
     
-    // URLs de secours
-    GEOJSON_FALLBACK_URLS: [
-        'https://gitlab.com/marwan.ouftir45/parcellespac/-/raw/main/parcellespac.geojson',
-        'parcellespac.geojson'  // Fichier local
+    // URL de secours
+    FALLBACK_URLS: [
+        'https://raw.githubusercontent.com/marwanouftir45-ui/testdashbord/main/parcelles-agricoles-2026-01-23.json',
+        'parcelles-agricoles-2026-01-23.json'  // Fichier local
     ],
     
-    GITLAB_BASE_URL: 'https://gitlab.com/marwan.ouftir45/parcellespac'
+    // URL base pour les liens
+    GITHUB_BASE_URL: 'https://github.com/marwanouftir45-ui/testdashbord'
 };
 
 // Variables globales
